@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Navigate to the directory containing the files
-# cd /path/to/your/directory
+cd lab1/
 
 # Loop through each .py file
 for file in *.py; do
