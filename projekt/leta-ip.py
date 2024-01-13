@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
 
 import ipapi
+import sys
+import time
 
 ### Filer som skrivs/läs från
 fil_ip_info = 'ip.txt'
 
+class Colors:
+    cya = '\033[96m'  # Cyan 
+    red = '\033[91m'  # Röd
+    clr = '\033[0m'   # Nollställ
+
 ### Hämta in en IP adress
 def get_ip():
-	return input("Enter target IP address: ")
+	s_print(f"{Colors.cya}Startar upp . . . {Colors.red}")
+	time.sleep(1)
+	return input("[!] Enter target IP address: ")
 	
 
 ### Letar upp info om IPv4 mha ipapi.co
@@ -40,15 +49,26 @@ def read_file():
             asn = lines[26].split(':')[1].strip()
 
             # Skriv ut formaterad
-            print(f"[*] IP: {ip} | {city}/{country} | {asn}/{org}")
+            s_print(f"{Colors.cya}Söker efter IP . . . {Colors.red}")
+            print(
+		f"\n\n{Colors.cya}[*]{Colors.clr} "
+		f"IP: {Colors.red}{ip}{Colors.clr} "
+		f"| {country} / {Colors.red}{city}{Colors.clr} | {org} / {Colors.red}{asn}{Colors.clr}")
 
     except Exception as e:
         print(f"Error: {e}")
 
+def s_print(string):
+    for char in string + Colors.red + "\n":
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(3/90)
 
 ### Main funktionen
 if __name__ == "__main__":
 
+    # Skapa färger
+    c = Colors()
     # Hämta ip att söka på    
     sok_ip = get_ip()
     # Hämta info om IP
